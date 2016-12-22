@@ -1,0 +1,59 @@
+'use strict';
+
+const path = require('path');
+const webpack = require('webpack');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
+const ManifestPlugin = require('webpack-manifest-plugin');
+
+const DEBUG = process.env.NODE_ENV !== 'production';
+const NODE_ENV = JSON.stringify(process.env.NODE_ENV || 'development');
+const outpath = DEBUG ? 'build' : 'dist';
+
+const plugins = (() => {
+  return {
+    base: new webpack.DefinePlugin({
+      'process.env': {
+        'NODE_ENV': NODE_ENV
+      }
+    }),
+    htmlWebpack: new HtmlWebpackPlugin({
+      template: './app/index.html', // path.join(__dirname, '..', 'app2', 'index.html'),
+      inject: 'body',
+    }),
+    noErrors: new webpack.NoErrorsPlugin(),
+    sourceMapDevTool: new webpack.SourceMapDevToolPlugin({
+      filename: null,
+      test: /\.tsx?$/
+    }),
+    manifest: ManifestPlugin()
+  }
+})();
+
+console.log(plugins);
+
+// compose set of plugins to be returned based on env
+module.exports = (function () {
+  switch (NODE_ENV) {
+    case 'production':
+      return [
+        plugins.base,
+        // plugins.htmlWebpack,
+        plugins.noErrors
+      ];
+		case 'development':
+			return [plugins.base,
+				      plugins.htmlWebpack,
+			        plugins.noErrors];
+    case 'default':
+      return []
+      /*
+      return [
+        plugins.htmlWebpack,
+        plugins.base,
+        plugins.manifest,
+        plugins.noErrors,
+        plugins.sourceMapDevTool
+      ];
+      */
+  }
+})();
