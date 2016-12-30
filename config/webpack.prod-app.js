@@ -93,12 +93,12 @@ module.exports = (fullpath) => {
         test: /\.tsx?$/,
         use: 'tslint-loader',
         exclude: /node_modules/
-      /*}, {
-            enforce: 'pre',
-            test: /\.js$/,
-            use: 'source-map-loader',
-            exclude: /node_modules/
-          */
+          /*}, {
+                enforce: 'pre',
+                test: /\.js$/,
+                use: 'source-map-loader',
+                exclude: /node_modules/
+              */
       }, {
         test: /\.tsx?$/,
         use: `ts-loader?configFileName=${fullpath.tsconfig.prod.app}`,

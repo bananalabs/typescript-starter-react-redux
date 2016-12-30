@@ -27,7 +27,7 @@ module.exports = (fullpath) => {
     plugins: [
       // Chunking
       new webpack.optimize.OccurrenceOrderPlugin(true),
-      new webpack.optimize.DedupePlugin(),
+      // new webpack.optimize.DedupePlugin(),
       new webpack.optimize.CommonsChunkPlugin({
         name: 'vendor',
         minChunks: (module) => {
@@ -88,12 +88,12 @@ module.exports = (fullpath) => {
         test: /\.tsx?$/,
         use: 'tslint-loader',
         exclude: /node_modules/
-      /*}, {
-        enforce: 'pre',
-        test: /\.js$/,
-        use: 'source-map-loader',
-        exclude: /node_modules/
-        */
+          /*}, {
+            enforce: 'pre',
+            test: /\.js$/,
+            use: 'source-map-loader',
+            exclude: /node_modules/
+            */
       }, {
         test: /\.tsx?$/,
         use: `ts-loader?configFileName=${fullpath.tsconfig.prod.lib}`,
