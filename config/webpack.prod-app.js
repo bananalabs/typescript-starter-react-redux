@@ -74,7 +74,7 @@ module.exports = (fullpath) => {
 
     // Disable performance hints during development
     performance: {
-      hints: 'warning' // false || 'warning' || 'error'
+      hints: false // false || 'warning' || 'error'
     }
   }, {
     // =================================
