@@ -24,6 +24,8 @@
     "clean": "rimraf build coverage",
     "lint": "tslint -c tslint.json src/**/*.ts",
     "build:watch": "tsc -w",
+    "secure": "nsp check",
+    "check": "npm-check -u",
     "_:check-engines:_": "check-engines",
     "_:css:_": "tcm ./src",
     "_:webpack:dev:_": "webpack --env development --colors --progress",
