@@ -134,7 +134,7 @@ module.exports = (fullpath) => {
       }),
       new webpack.optimize.UglifyJsPlugin({
         compress: {
-          warnings: true
+          warnings: false
         },
         sourceMap: true,
         mangle: {
