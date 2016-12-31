@@ -10,15 +10,15 @@
   "scripts": {
     "dev": "webpack-dev-server --env dev-server",
     "build": "run-batch",
-    "build:prod": "run-batch",
     "build:dev-app": "run-batch",
     "build:dev-lib": "run-batch",
-    "build:dist-app": "run-batch",
-    "build:dist-lib": "run-batch",
-    "static:dev": "static-server ./build/app",
-    "static:prod": "static-server ./dist/app",
     "test:dev": "run-batch",
+    "static:dev": "static-server ./build/app",
+    "build:prod": "run-batch",
+    "build:prod-app": "run-batch",
+    "build:prod-lib": "run-batch",
     "test:prod": "run-batch",
+    "static:prod": "static-server ./dist/app",
     "coverage": "istanbul check-coverage ./coverage/typescript/coverage.json",
     "sh": "npm-sh",
     "clean": "rimraf build coverage",
@@ -49,7 +49,8 @@
       "clean",
       "lint",
       "_:css:_",
-      "_:webpack:dev:_"
+      "_:webpack:dev:_",
+      "test:dev"
     ],
     "build:prod": [
       "_:check-engines:_",
@@ -63,14 +64,16 @@
       "clean",
       "lint",
       "_:css:_",
-      "_:webpack:dev-app:_"
+      "_:webpack:dev-app:_",
+      "test:dev"
     ],
     "build:dev-lib": [
       "_:check-engines:_",
       "clean",
       "lint",
       "_:css:_",
-      "_:webpack:dev-lib:_"
+      "_:webpack:dev-lib:_",
+      "test:dev"
     ],
     "build:prod-app": [
       "_:check-engines:_",
