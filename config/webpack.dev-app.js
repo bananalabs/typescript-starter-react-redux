@@ -1,5 +1,6 @@
 'use strict';
 const path = require('path');
+const fs = require('fs');
 const webpack = require('webpack');
 const merge = require('webpack-merge');
 const CleanWebpackPlugin = require('clean-webpack-plugin');
@@ -38,7 +39,14 @@ module.exports = (fullpath, options) => {
         name: 'vendor',
         minChunks: (module) => {
           const req = module.userRequest;
-          return typeof req === 'string' && req.indexOf('node_modules') >= 0;
+          if (typeof req === 'string' && req.indexOf('node_modules') >= 0) {
+            const fname = req.split('!').slice(-1).pop(); // accounts for loaders
+            const stats = fs.lstatSync(fname);
+            if (!stats.isSymbolicLink()) {
+              return true;
+            }
+          }
+          return false;
         }
       }),
       new webpack.optimize.CommonsChunkPlugin({
@@ -58,7 +66,7 @@ module.exports = (fullpath, options) => {
       // sourceMapFilename: '[name].[hash].js.map',
       sourceMapFilename: '[name].ts.map',
     },
-    devtool: 'inine-source-map',
+    devtool: 'inline-source-map',
     plugins: [
       new webpack.SourceMapDevToolPlugin({
         filename: '[name].js.map',

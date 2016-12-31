@@ -19,6 +19,7 @@
     "build:prod-lib": "run-batch",
     "test:prod": "run-batch",
     "static:prod": "static-server ./dist/app",
+    "build:all": "webpack --env all --colors --progress",
     "coverage": "istanbul check-coverage ./coverage/typescript/coverage.json",
     "sh": "npm-sh",
     "clean": "rimraf build coverage",
@@ -111,7 +112,7 @@
   ],
   "pre-push": [
     "test:prod",
-    "build:prod",
+    "build:all",
     "check",
     "secure",
     "_:git-mods:nothing-to-commit:_"
