@@ -10,6 +10,7 @@
   "scripts": {
     "dev": "webpack-dev-server --env dev-server",
     "build": "run-batch",
+
     "build:dev-app": "run-batch",
     "build:dev-lib": "run-batch",
     "test:dev": "run-batch",
