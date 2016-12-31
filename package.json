@@ -182,7 +182,7 @@
     "rimraf": "^2.5.4",
     "semver": "^5.3.0",
     "shelljs-nodecli": "^0.1.1",
-    "sinon": "^1.17.5",
+    "sinon": "^1.17.7",
     "source-map-loader": "^0.1.5",
     "static-server": "^2.0.3",
     "stats-webpack-plugin": "^0.4.2",
