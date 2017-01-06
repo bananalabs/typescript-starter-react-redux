@@ -74,14 +74,14 @@
     ],
     "build:prod-app": [
       "_:check-engines:_",
-      "clean:dist",
+      "clean:prod",
       "lint",
       "_:css:_",
       "_:webpack:prod-app:_"
     ],
     "build:prod-lib": [
       "_:check-engines:_",
-      "clean:dist",
+      "clean:prod",
       "lint",
       "_:css:_",
       "_:webpack:prod-lib:_"
