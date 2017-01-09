@@ -80,9 +80,16 @@ module.exports = (env) => {
       port: port
     }
     switch (env) {
+      case 'all':
+        return [
+          devlib(fullpaths),
+          devapp(fullpaths, options),
+          prodlib(fullpaths),
+          prodapp(fullpaths)
+        ];
       case 'dev-server':
       case 'dev-app':
-        return devapp(fullpaths, options)
+        return devapp(fullpaths, options);
       case 'dev-lib':
         return devlib(fullpaths);
       case 'development':
