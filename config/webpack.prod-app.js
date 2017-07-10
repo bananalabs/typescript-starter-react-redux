@@ -181,15 +181,6 @@ module.exports = (fullpath) => {
         logLevel: 'info'
       })
     ]
-  }, {
-    plugins: [
-      new CopyWebpackPlugin([
-        {
-          from: 'node_modules/monaco-editor/min/vs',
-          to: 'vs',
-        }
-      ])
-    ]
   });
   return fullcfg;
 }

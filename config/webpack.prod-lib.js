@@ -126,7 +126,7 @@ module.exports = (fullpath) => {
       new webpack.DefinePlugin({
         'process.env.NODE_ENV': JSON.stringify('production')
       }),
-      new webpack.optimize.UglifyJsPlugin({
+      /* new webpack.optimize.UglifyJsPlugin({
         compress: {
           warnings: false
         },
@@ -136,7 +136,7 @@ module.exports = (fullpath) => {
           screw_ie8: true,
           keep_fnames: false
         }
-      })
+      }) */
     ]
   }, {
     // =================================

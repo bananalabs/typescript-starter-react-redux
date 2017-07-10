@@ -121,7 +121,6 @@
   "pre-push": [
     "test:prod",
     "build:all",
-    "check",
     "secure",
     "_:git-mods:nothing-to-commit:_"
   ],
@@ -194,7 +193,7 @@
     "rimraf": "^2.5.4",
     "semver": "^5.3.0",
     "shelljs-nodecli": "^0.1.1",
-    "sinon": "^2.3.7",
+    "sinon": "^2.3.6",
     "source-map-loader": "^0.2.1",
     "static-server": "^2.0.3",
     "stats-webpack-plugin": "^0.6.1",
