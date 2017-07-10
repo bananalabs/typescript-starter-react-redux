@@ -1,11 +1,13 @@
 'use strict';
 const path = require('path');
+const fs = require('fs');
 const webpack = require('webpack');
 const merge = require('webpack-merge');
 const CleanWebpackPlugin = require('clean-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
 const ManifestPlugin = require('webpack-manifest-plugin');
+const CopyWebpackPlugin = require('copy-webpack-plugin');
 const pkg = require('../package.json');
 
 module.exports = (fullpath, options) => {
@@ -38,7 +40,14 @@ module.exports = (fullpath, options) => {
         name: 'vendor',
         minChunks: (module) => {
           const req = module.userRequest;
-          return typeof req === 'string' && req.indexOf('node_modules') >= 0;
+          if (typeof req === 'string' && req.indexOf('node_modules') >= 0) {
+            const fname = req.split('!').slice(-1).pop(); // accounts for loaders
+            const stats = fs.lstatSync(fname);
+            if (!stats.isSymbolicLink()) {
+              return true;
+            }
+          }
+          return false;
         }
       }),
       new webpack.optimize.CommonsChunkPlugin({

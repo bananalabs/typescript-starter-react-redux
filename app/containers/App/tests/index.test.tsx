@@ -14,6 +14,6 @@ describe('<App />', () => {
     const renderedComponent = render(
       <Hello show={true} toggle={toggle} />
     );
-    expect(renderedComponent.find(Hello)).to.exist;
+    expect(renderedComponent.find('Hello')).to.exist;
   });
 });

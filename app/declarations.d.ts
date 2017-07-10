@@ -13,5 +13,7 @@ declare module "redux-devtools-chart-monitor" {
 
 // declare module 'Window';
 // declare module 'module';
-
+declare module 'react-router-redux';
+declare module 'react-router';
+declare module 'react-router-dom';
 declare module 'redux-devtools-extension/developmentOnly';

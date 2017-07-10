@@ -7,13 +7,12 @@
 // tslint:disable-next-line
 import * as React from 'react';
 import * as ReactDOM from 'react-dom';
-import { Router, Route, Link, browserHistory } from 'react-router';
 import { Provider } from 'react-redux';
+import { BrowserRouter, Switch, Route } from 'react-router-dom';
 import { syncHistoryWithStore } from 'react-router-redux';
 import root from 'window-or-global';
 
 import App from './containers/App';
-// import {default as Hello} from '../src/components/Hello';
 import { Hello } from '../src';
 
 
@@ -34,20 +33,17 @@ const selectLocationState = () => {
     };
 };
 
-const store = Store.configure({}, browserHistory);
-const history = syncHistoryWithStore(browserHistory, store, {
-    selectLocationState: selectLocationState(),
-});
+const store = Store.configure({});
 
 ReactDOM.render((
-    <Provider store={store}>
+  <Provider store={store}>
+    <div>
+      <BrowserRouter>
         <div>
-            <Router history={history}>
-                <Route path='/' component={App}>
-                    <Route path='Hello' component={Hello} />
-                </Route>
-            </Router>
-            {!!DevTools ? <DevTools /> : null}
+          <App />
         </div>
-    </Provider>
+      </BrowserRouter>
+      {!!DevTools ? <DevTools visibleOnLoad={true}/> : null}
+    </div>
+  </Provider>
 ), document.getElementById('app'));

@@ -5,7 +5,7 @@ import {
 
 const initialState = { show: true };
 
-export interface Action { type: string; };
+export interface Action { type: string; }
 
 function globalReducer(state = initialState, action: Action): GlobalState {
   switch (action.type) {

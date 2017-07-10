@@ -1,5 +1,6 @@
 'use strict';
 const path = require('path');
+const fs = require('fs');
 const webpack = require('webpack');
 const merge = require('webpack-merge');
 const CleanWebpackPlugin = require('clean-webpack-plugin');
@@ -7,6 +8,8 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
 const ManifestPlugin = require('webpack-manifest-plugin');
 const pkg = require('../package.json');
+const CopyWebpackPlugin = require('copy-webpack-plugin');
+// const config = require('./production.json');
 
 module.exports = (fullpath) => {
   const fullcfg = merge({
@@ -37,7 +40,14 @@ module.exports = (fullpath) => {
         name: 'vendor',
         minChunks: (module) => {
           const req = module.userRequest;
-          return typeof req === 'string' && req.indexOf('node_modules') >= 0;
+          if (typeof req === 'string' && req.indexOf('node_modules') >= 0) {
+            const fname = req.split('!').slice(-1).pop(); // accounts for loaders
+            const stats = fs.lstatSync(fname);
+            if (!stats.isSymbolicLink()) {
+              return true;
+            }
+          }
+          return false;
         }
       })
     ]
@@ -132,6 +142,7 @@ module.exports = (fullpath) => {
       new webpack.DefinePlugin({
         'process.env.NODE_ENV': JSON.stringify('production')
       }),
+      /*
       new webpack.optimize.UglifyJsPlugin({
         compress: {
           warnings: false
@@ -142,7 +153,7 @@ module.exports = (fullpath) => {
           screw_ie8: true,
           keep_fnames: false
         }
-      })
+      }) */
     ]
   }, {
     // =================================
@@ -169,6 +180,15 @@ module.exports = (fullpath) => {
         statsFilename: fullpath.stats.prod.app.json,
         logLevel: 'info'
       })
+    ]
+  }, {
+    plugins: [
+      new CopyWebpackPlugin([
+        {
+          from: 'node_modules/monaco-editor/min/vs',
+          to: 'vs',
+        }
+      ])
     ]
   });
   return fullcfg;
